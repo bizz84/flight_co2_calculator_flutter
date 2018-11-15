@@ -44,29 +44,31 @@ class FlightPage extends StatelessWidget {
             ),
           ),
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget>[
-              FlightDetailsCard(
-                airportLookup: airportLookup,
-                flightDetails: snapshot.data.details,
-              ),
-              FlightCalculationCard(
-                flightCalculationData: snapshot.data.data,
-              ),
-              Expanded(child: Container()),
-              AutoSizeText(
-                'Flight CO2 calculation formula by myclimate.org',
-                minFontSize: 11.0,
-                maxLines: 1,
-                style: TextStyles.caption,
-              ),
-              AutoSizeText(
-                'Airport data set by openflights.org',
-                minFontSize: 11.0,
-                maxLines: 1,
-                style: TextStyles.caption,
-              ),
-            ],
+          child: SafeArea(
+            child: Column(
+              children: <Widget>[
+                FlightDetailsCard(
+                  airportLookup: airportLookup,
+                  flightDetails: snapshot.data.details,
+                ),
+                FlightCalculationCard(
+                  flightCalculationData: snapshot.data.data,
+                ),
+                Expanded(child: Container()),
+                AutoSizeText(
+                  'Flight CO2 calculation formula by myclimate.org',
+                  minFontSize: 11.0,
+                  maxLines: 1,
+                  style: TextStyles.caption,
+                ),
+                AutoSizeText(
+                  'Airport data set by openflights.org',
+                  minFontSize: 11.0,
+                  maxLines: 1,
+                  style: TextStyles.caption,
+                ),
+              ],
+            ),
           ),
         );
       },

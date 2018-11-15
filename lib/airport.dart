@@ -34,7 +34,7 @@ class LocationCoordinate2D {
   }
 }
 
-class Airport implements Comparable {
+class Airport{
   Airport({
     @required this.name,
     @required this.city,
@@ -50,8 +50,6 @@ class Airport implements Comparable {
   final String iata;
   final String icao;
   final LocationCoordinate2D location;
-  //final double latitude;
-  //final double longitude;
   //final double altitude;
   //final double timezone;
   //final String dst;
@@ -68,7 +66,7 @@ class Airport implements Comparable {
     String city = unescapeString(components[2]);
     String country = unescapeString(components[3]);
     String iata = unescapeString(components[4]);
-    if (iata == '\\N') {
+    if (iata == '\\N') { // placeholder for missing iata code
       iata = null;
     }
     String icao = unescapeString(components[5]);
@@ -106,25 +104,12 @@ class Airport implements Comparable {
       }
     }
   }
-
+  // All fields are escaped with double quotes. This method deals with them
   static String unescapeString(dynamic value) {
     if (value is String) {
       return value.replaceAll('"', '');
     }
     return null;
-  }
-
-  @override
-  int get hashCode => iata.hashCode;
-
-  @override
-  bool operator ==(other) {
-    return iata == other.iata;
-  }
-
-  @override
-  int compareTo(other) {
-    return iata.hashCode - other.hashCode;
   }
 
   @override

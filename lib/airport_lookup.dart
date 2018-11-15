@@ -18,11 +18,11 @@ class AirportLookup {
           airport.city.toLowerCase() == string ||
           airport.country.toLowerCase() == string;
     }).toList();
-
+    // found exact matches
     if (matching.length > 0) {
       return matching;
     }
-
+    // search again with less strict criteria
     return airports.where((airport) {
       final iata = airport.iata ?? '';
       return iata.toLowerCase().contains(string) ||

@@ -66,4 +66,4 @@ FlightCalculationData _calculate(FlightDetails flightDetails) {
 
 See the sample Flight CO2 Calculator app bundled with the project in the `example` folder.
 
-### [License: MIT](License.md)
+### [License: MIT](LICENSE)

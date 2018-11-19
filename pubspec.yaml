@@ -1,8 +1,8 @@
 name: flight_co2_calculator_flutter
-description: A new Flutter plugin.
+description: Flutter package and sample app to calculate Flight CO2 emissions.
 version: 0.0.1
-author:
-homepage:
+author: Andrea Bizzotto <bizz84@gmail.com>
+homepage: https://github.com/bizz84/flight_co2_calculator_flutter
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"

@@ -61,7 +61,6 @@ class FlightDetailsBloc implements BlocBase {
   BehaviorSubject _flightSubject =
       BehaviorSubject<Flight>(seedValue: Flight.initialValue());
   Stream<Flight> get flightStream => _flightSubject.controller.stream;
-  Flight get flight => _flightSubject.value;
 
   // public methods
   void updateDeparture(Airport departure) {
@@ -87,7 +86,7 @@ class FlightDetailsBloc implements BlocBase {
     FlightClass flightClass,
     FlightType flightType,
   }) {
-    FlightDetails flightDetails = flight.details.copyWith(
+    FlightDetails flightDetails = _flightSubject.value.details.copyWith(
       departure: departure,
       arrival: arrival,
       flightClass: flightClass,

@@ -1,8 +1,8 @@
 
 import 'package:flight_co2_calculator_flutter/flight_class.dart';
 
-class FlightParameters {
-  FlightParameters({
+class _FlightParameters {
+  _FlightParameters({
     this.a,
     this.b,
     this.c,
@@ -32,7 +32,7 @@ class FlightParameters {
   final double P; // Pre production
   final double M; // multiplier
 
-  static FlightParameters shortHaulParams = FlightParameters(
+  static _FlightParameters shortHaulParams = _FlightParameters(
       a: 3.87871E-05,
       b: 2.9866,
       c: 1263.42,
@@ -47,7 +47,7 @@ class FlightParameters {
       P: 0.51,
       M: 2);
 
-  static FlightParameters longHaulParams = FlightParameters(
+  static _FlightParameters longHaulParams = _FlightParameters(
       a: 0.000134576,
       b: 6.1798,
       c: 3446.20,
@@ -86,22 +86,22 @@ class CO2Calculator {
     return b * value + a * (1 - value);
   }
 
-  static FlightParameters flightParameters({double distanceKm}) {
+  static _FlightParameters flightParameters({double distanceKm}) {
     double lowerBound = 1500.0;
     double upperBound = 2500.0;
     if (distanceKm <= lowerBound) {
-      return FlightParameters.shortHaulParams;
+      return _FlightParameters.shortHaulParams;
     }
     if (distanceKm >= upperBound) {
-      return FlightParameters.longHaulParams;
+      return _FlightParameters.longHaulParams;
     }
     double normalizedDistance = _normalize(
         value: distanceKm, lowerBound: lowerBound, upperBound: upperBound);
 
-    final s = FlightParameters.shortHaulParams;
-    final l = FlightParameters.longHaulParams;
+    final s = _FlightParameters.shortHaulParams;
+    final l = _FlightParameters.longHaulParams;
 
-    return FlightParameters(
+    return _FlightParameters(
         a: _interpolate(a: s.a, b: l.a, value: normalizedDistance),
         b: _interpolate(a: s.b, b: l.b, value: normalizedDistance),
         c: _interpolate(a: s.c, b: l.c, value: normalizedDistance),
@@ -122,7 +122,7 @@ class CO2Calculator {
   }
 
   static double calculateCO2e(double distanceKm, FlightClass flightClass) {
-    FlightParameters fp = flightParameters(distanceKm: distanceKm);
+    _FlightParameters fp = flightParameters(distanceKm: distanceKm);
     double x = distanceKm + fp.DC;
     double CW = _flightClassWeight(
       flightClass: flightClass,

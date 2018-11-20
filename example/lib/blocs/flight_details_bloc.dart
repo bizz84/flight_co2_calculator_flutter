@@ -38,21 +38,39 @@ class FlightDetails {
   }
 }
 
-class FlightCalculationData {
-  FlightCalculationData({this.distanceKm, this.co2e});
+class FlightData {
+  FlightData({this.distanceKm, this.co2e});
   final double distanceKm;
   final double co2e;
+
+  factory FlightData.fromDetails(FlightDetails flightDetails) {
+    double distanceKm;
+    double co2e;
+    Airport departure = flightDetails.departure;
+    Airport arrival = flightDetails.arrival;
+    if (departure != null && arrival != null) {
+      double multiplier =
+          flightDetails.flightType == FlightType.oneWay ? 1.0 : 2.0;
+      distanceKm = DistanceCalculator.distanceInKmBetween(
+          departure.location, arrival.location);
+      distanceKm = CO2Calculator.correctedDistanceKm(distanceKm);
+      co2e =
+          CO2Calculator.calculateCO2e(distanceKm, flightDetails.flightClass) *
+              multiplier;
+    }
+    return FlightData(distanceKm: distanceKm, co2e: co2e);
+  }
 }
 
 class Flight {
   Flight({this.details, this.data});
   final FlightDetails details;
-  final FlightCalculationData data;
+  final FlightData data;
 
   factory Flight.initialData() {
     return Flight(
       details: FlightDetails(),
-      data: FlightCalculationData(),
+      data: FlightData(),
     );
   }
 
@@ -69,29 +87,11 @@ class Flight {
       flightClass: flightClass,
       flightType: flightType,
     );
-    FlightCalculationData flightCalculationData = _calculate(flightDetails);
+    FlightData flightData = FlightData.fromDetails(flightDetails);
     return Flight(
       details: flightDetails,
-      data: flightCalculationData,
+      data: flightData,
     );
-  }
-
-  FlightCalculationData _calculate(FlightDetails flightDetails) {
-    double distanceKm;
-    double co2e;
-    Airport departure = flightDetails.departure;
-    Airport arrival = flightDetails.arrival;
-    if (departure != null && arrival != null) {
-      double multiplier =
-      flightDetails.flightType == FlightType.oneWay ? 1.0 : 2.0;
-      distanceKm = DistanceCalculator.distanceInKmBetween(
-          departure.location, arrival.location);
-      distanceKm = CO2Calculator.correctedDistanceKm(distanceKm);
-      co2e =
-          CO2Calculator.calculateCO2e(distanceKm, flightDetails.flightClass) *
-              multiplier;
-    }
-    return FlightCalculationData(distanceKm: distanceKm, co2e: co2e);
   }
 }
 
@@ -106,7 +106,7 @@ class FlightDetailsBloc implements BlocBase {
     FlightClass flightClass,
     FlightType flightType,
   }) {
-    Flight newValue =_flightSubject.value.copyWith(
+    Flight newValue = _flightSubject.value.copyWith(
       departure: departure,
       arrival: arrival,
       flightClass: flightClass,

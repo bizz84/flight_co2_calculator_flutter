@@ -2,6 +2,7 @@ import 'package:flight_co2_calculator_flutter/airport.dart';
 import 'package:flight_co2_calculator_flutter/airport_lookup.dart';
 import 'package:flight_co2_calculator_flutter_example/app/airport_search_delegate.dart';
 import 'package:flight_co2_calculator_flutter_example/app/airport_widget.dart';
+import 'package:flight_co2_calculator_flutter_example/app/constants/palette.dart';
 import 'package:flight_co2_calculator_flutter_example/app/constants/text_styles.dart';
 import 'package:flight_co2_calculator_flutter_example/app/segmented_control.dart';
 import 'package:flight_co2_calculator_flutter_example/blocs/bloc_provider.dart';
@@ -26,22 +27,22 @@ class FlightDetailsCard extends StatelessWidget {
     FlightType.twoWays: Text('Return'),
   };
 
-  void _selectDeparture(BuildContext context) async {
-    final departure = await showSearch<Airport>(
+  Future<Airport> _showSearch(BuildContext context) async {
+    return await showSearch<Airport>(
         context: context,
         delegate: AirportSearchDelegate(
           airportLookup: airportLookup,
         ));
+  }
+
+  void _selectDeparture(BuildContext context) async {
+    final departure = await _showSearch(context);
     final flightDetailsBloc = BlocProvider.of<FlightDetailsBloc>(context);
     flightDetailsBloc.updateWith(departure: departure);
   }
 
   void _selectArrival(BuildContext context) async {
-    final arrival = await showSearch<Airport>(
-        context: context,
-        delegate: AirportSearchDelegate(
-          airportLookup: airportLookup,
-        ));
+    final arrival = await _showSearch(context);
     final flightDetailsBloc = BlocProvider.of<FlightDetailsBloc>(context);
     flightDetailsBloc.updateWith(arrival: arrival);
   }
@@ -57,9 +58,9 @@ class FlightDetailsCard extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color(0x40068FFA),
-              Color(0x4049BFC4),
-              Color(0x4089ED91),
+              Palette.blueSkyLight,
+              Palette.blueGreenLight,
+              Palette.greenLandLight,
             ],
           ),
         ),

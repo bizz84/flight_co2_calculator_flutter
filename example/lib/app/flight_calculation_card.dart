@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 
 class FlightCalculationCard extends StatelessWidget {
   FlightCalculationCard({this.flightCalculationData});
-  final FlightCalculationData flightCalculationData;
+  final FlightData flightCalculationData;
 
   String get distanceString {
     return flightCalculationData.distanceKm != null

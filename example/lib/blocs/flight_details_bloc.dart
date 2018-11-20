@@ -5,13 +5,16 @@ import 'package:flight_co2_calculator_flutter/flight_class.dart';
 import 'package:flight_co2_calculator_flutter_example/blocs/bloc_provider.dart';
 import 'package:flight_co2_calculator_flutter/distance_calculator.dart';
 import 'package:flight_co2_calculator_flutter/co2_calculator.dart';
+import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
+/// Flight type: one way or return
 enum FlightType {
   oneWay,
   twoWays,
 }
 
+/// Model for the FlightDetailsCard
 class FlightDetails {
   FlightDetails({
     this.departure,
@@ -38,11 +41,13 @@ class FlightDetails {
   }
 }
 
+/// Model for the FlightCalculationCard
 class FlightData {
   FlightData({this.distanceKm, this.co2e});
   final double distanceKm;
   final double co2e;
 
+  /// factory method to calculate the distance and co2 from the flight details
   factory FlightData.fromDetails(FlightDetails flightDetails) {
     double distanceKm;
     double co2e;
@@ -62,11 +67,13 @@ class FlightData {
   }
 }
 
+/// Model for the FlightPage
 class Flight {
-  Flight({this.details, this.data});
+  Flight({@required this.details, @required this.data});
   final FlightDetails details;
   final FlightData data;
 
+  /// Initial empty data to be used as the seed value for the stream
   factory Flight.initialData() {
     return Flight(
       details: FlightDetails(),
@@ -74,20 +81,22 @@ class Flight {
     );
   }
 
-  // private methods
   Flight copyWith({
     Airport departure,
     Airport arrival,
     FlightClass flightClass,
     FlightType flightType,
   }) {
+    // get existing details and update
     FlightDetails flightDetails = details.copyWith(
       departure: departure,
       arrival: arrival,
       flightClass: flightClass,
       flightType: flightType,
     );
+    // calculate corresponding data
     FlightData flightData = FlightData.fromDetails(flightDetails);
+    // return new object
     return Flight(
       details: flightDetails,
       data: flightData,
@@ -95,9 +104,11 @@ class Flight {
   }
 }
 
+/// Bloc used by the FlightPage
 class FlightDetailsBloc implements BlocBase {
-  BehaviorSubject _flightSubject =
-      BehaviorSubject<Flight>(seedValue: Flight.initialData());
+  BehaviorSubject _flightSubject = BehaviorSubject<Flight>(
+    seedValue: Flight.initialData(),
+  );
   Stream<Flight> get flightStream => _flightSubject.controller.stream;
 
   void updateWith({
@@ -106,12 +117,14 @@ class FlightDetailsBloc implements BlocBase {
     FlightClass flightClass,
     FlightType flightType,
   }) {
+    // get new value by updating existing one
     Flight newValue = _flightSubject.value.copyWith(
       departure: departure,
       arrival: arrival,
       flightClass: flightClass,
       flightType: flightType,
     );
+    // add back to the stream
     _flightSubject.add(newValue);
   }
 

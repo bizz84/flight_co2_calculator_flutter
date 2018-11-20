@@ -49,54 +49,31 @@ class Flight {
   final FlightDetails details;
   final FlightCalculationData data;
 
-  factory Flight.initialValue() {
+  factory Flight.initialData() {
     return Flight(
       details: FlightDetails(),
       data: FlightCalculationData(),
     );
   }
-}
-
-class FlightDetailsBloc implements BlocBase {
-  BehaviorSubject _flightSubject =
-      BehaviorSubject<Flight>(seedValue: Flight.initialValue());
-  Stream<Flight> get flightStream => _flightSubject.controller.stream;
-
-  // public methods
-  void updateDeparture(Airport departure) {
-    _updateWith(departure: departure);
-  }
-
-  void updateArrival(Airport arrival) {
-    _updateWith(arrival: arrival);
-  }
-
-  void updateFlightClass(FlightClass flightClass) {
-    _updateWith(flightClass: flightClass);
-  }
-
-  void updateFlightType(FlightType flightType) {
-    _updateWith(flightType: flightType);
-  }
 
   // private methods
-  void _updateWith({
+  Flight copyWith({
     Airport departure,
     Airport arrival,
     FlightClass flightClass,
     FlightType flightType,
   }) {
-    FlightDetails flightDetails = _flightSubject.value.details.copyWith(
+    FlightDetails flightDetails = details.copyWith(
       departure: departure,
       arrival: arrival,
       flightClass: flightClass,
       flightType: flightType,
     );
     FlightCalculationData flightCalculationData = _calculate(flightDetails);
-    _flightSubject.add(Flight(
+    return Flight(
       details: flightDetails,
       data: flightCalculationData,
-    ));
+    );
   }
 
   FlightCalculationData _calculate(FlightDetails flightDetails) {
@@ -106,7 +83,7 @@ class FlightDetailsBloc implements BlocBase {
     Airport arrival = flightDetails.arrival;
     if (departure != null && arrival != null) {
       double multiplier =
-          flightDetails.flightType == FlightType.oneWay ? 1.0 : 2.0;
+      flightDetails.flightType == FlightType.oneWay ? 1.0 : 2.0;
       distanceKm = DistanceCalculator.distanceInKmBetween(
           departure.location, arrival.location);
       distanceKm = CO2Calculator.correctedDistanceKm(distanceKm);
@@ -115,6 +92,27 @@ class FlightDetailsBloc implements BlocBase {
               multiplier;
     }
     return FlightCalculationData(distanceKm: distanceKm, co2e: co2e);
+  }
+}
+
+class FlightDetailsBloc implements BlocBase {
+  BehaviorSubject _flightSubject =
+      BehaviorSubject<Flight>(seedValue: Flight.initialData());
+  Stream<Flight> get flightStream => _flightSubject.controller.stream;
+
+  void updateWith({
+    Airport departure,
+    Airport arrival,
+    FlightClass flightClass,
+    FlightType flightType,
+  }) {
+    Flight newValue =_flightSubject.value.copyWith(
+      departure: departure,
+      arrival: arrival,
+      flightClass: flightClass,
+      flightType: flightType,
+    );
+    _flightSubject.add(newValue);
   }
 
   dispose() {

@@ -33,7 +33,7 @@ class FlightDetailsCard extends StatelessWidget {
           airportLookup: airportLookup,
         ));
     final flightDetailsBloc = BlocProvider.of<FlightDetailsBloc>(context);
-    flightDetailsBloc.updateDeparture(departure);
+    flightDetailsBloc.updateWith(departure: departure);
   }
 
   void _selectArrival(BuildContext context) async {
@@ -43,7 +43,7 @@ class FlightDetailsCard extends StatelessWidget {
           airportLookup: airportLookup,
         ));
     final flightDetailsBloc = BlocProvider.of<FlightDetailsBloc>(context);
-    flightDetailsBloc.updateArrival(arrival);
+    flightDetailsBloc.updateWith(arrival: arrival);
   }
 
   @override
@@ -85,14 +85,14 @@ class FlightDetailsCard extends StatelessWidget {
               header: Text('Type', style: TextStyles.caption),
               value: flightDetails.flightType,
               children: flightTypeChildren,
-              onValueChanged: (flightType) => bloc.updateFlightType(flightType),
+              onValueChanged: (flightType) => bloc.updateWith(flightType: flightType),
             ),
             SizedBox(height: 16.0),
             SegmentedControl<FlightClass>(
               header: Text('Class', style: TextStyles.caption),
               value: flightDetails.flightClass,
               children: flightClassChildren,
-              onValueChanged: (flightClass) => bloc.updateFlightClass(flightClass),
+              onValueChanged: (flightClass) => bloc.updateWith(flightClass: flightClass),
             ),
             SizedBox(height: 16.0),
           ],

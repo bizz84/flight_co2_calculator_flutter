@@ -29,7 +29,7 @@ class FlightPage extends StatelessWidget {
     final flightDetailsBloc = BlocProvider.of<FlightDetailsBloc>(context);
     return StreamBuilder<Flight>(
       stream: flightDetailsBloc.flightStream,
-      initialData: Flight.initialValue(),
+      initialData: Flight.initialData(),
       builder: (context, snapshot) {
         return Container(
           decoration: BoxDecoration(

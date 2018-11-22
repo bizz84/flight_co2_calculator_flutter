@@ -21,7 +21,6 @@ class FlightPage extends StatelessWidget {
         title: Text('Flight CO2 Calculator'),
       ),
       body: _buildContent(context),
-      backgroundColor: Colors.grey[200],
     );
   }
 

@@ -38,7 +38,6 @@ class FlightPage extends StatelessWidget {
               end: Alignment.bottomCenter,
               colors: [
                 Palette.blueSky,
-                Palette.blueGreen,
                 Palette.greenLand,
               ],
             ),

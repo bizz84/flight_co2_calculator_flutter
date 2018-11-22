@@ -59,7 +59,6 @@ class FlightDetailsCard extends StatelessWidget {
             end: Alignment.bottomCenter,
             colors: [
               Palette.blueSkyLight,
-              Palette.blueGreenLight,
               Palette.greenLandLight,
             ],
           ),

@@ -24,7 +24,7 @@ class SegmentedControl<T> extends StatelessWidget {
             children: children,
             groupValue: value,
             selectedColor: Palette.blueSky,
-            pressedColor: Palette.blueSkyLightest,
+            pressedColor: Palette.blueSkyLighter,
             onValueChanged: onValueChanged,
           ),
         ),

@@ -4,13 +4,17 @@ import 'package:flutter/material.dart';
 
 class AirportWidget extends StatelessWidget {
   AirportWidget({this.iconData, this.title, this.airport, this.onPressed});
+  /// icon data to use (normally Icons.flight_takeoff or Icons.flight_land)
   final IconData iconData;
+  /// Title to show
   final Widget title;
+  /// Airport to show
   final Airport airport;
+  /// Callback that fires when the user taps on this widget
   final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
-    final body =
+    final airportDisplayName =
         airport != null ? '${airport.name} (${airport.iata})' : 'Select...';
     return InkWell(
       onTap: onPressed,
@@ -29,7 +33,7 @@ class AirportWidget extends StatelessWidget {
                   title,
                   SizedBox(height: 4.0),
                   AutoSizeText(
-                    body,
+                    airportDisplayName,
                     style: TextStyle(fontSize: 16.0),
                     minFontSize: 13.0,
                     maxLines: 2,

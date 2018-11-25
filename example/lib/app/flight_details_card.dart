@@ -11,7 +11,8 @@ import 'package:flight_co2_calculator_flutter/flight_class.dart';
 import 'package:flutter/material.dart';
 
 class FlightDetailsCard extends StatelessWidget {
-  FlightDetailsCard({@required this.flightDetails, @required this.airportLookup});
+  FlightDetailsCard(
+      {@required this.flightDetails, @required this.airportLookup});
   final FlightDetails flightDetails;
   final AirportLookup airportLookup;
 
@@ -85,14 +86,16 @@ class FlightDetailsCard extends StatelessWidget {
               header: Text('Type', style: TextStyles.caption),
               value: flightDetails.flightType,
               children: flightTypeChildren,
-              onValueChanged: (flightType) => bloc.updateWith(flightType: flightType),
+              onValueChanged: (flightType) =>
+                  bloc.updateWith(flightType: flightType),
             ),
             SizedBox(height: 16.0),
             SegmentedControl<FlightClass>(
               header: Text('Class', style: TextStyles.caption),
               value: flightDetails.flightClass,
               children: flightClassChildren,
-              onValueChanged: (flightClass) => bloc.updateWith(flightClass: flightClass),
+              onValueChanged: (flightClass) =>
+                  bloc.updateWith(flightClass: flightClass),
             ),
             SizedBox(height: 16.0),
           ],

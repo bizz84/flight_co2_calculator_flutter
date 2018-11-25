@@ -2,26 +2,10 @@ import 'package:flight_co2_calculator_flutter_example/app/constants/palette.dart
 import 'package:flight_co2_calculator_flutter_example/app/constants/text_styles.dart';
 import 'package:flight_co2_calculator_flutter_example/blocs/flight_details_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class FlightCalculationCard extends StatelessWidget {
   FlightCalculationCard({this.flightCalculationData});
   final FlightData flightCalculationData;
-
-  String get distanceString {
-    return flightCalculationData.distanceKm != null
-        ? '${flightCalculationData.distanceKm.roundToDouble().toInt()} km'
-        : '';
-  }
-
-  String get co2eString {
-    if (flightCalculationData.co2e != null) {
-      double tonnes = flightCalculationData.co2e / 1000.0;
-      final formatter = NumberFormat.decimalPattern();
-      return '${formatter.format(tonnes)} t';
-    }
-    return '';
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +19,13 @@ class FlightCalculationCard extends StatelessWidget {
             Expanded(
               child: FlightCalculationDataItem(
                 title: 'Distance',
-                body: distanceString,
+                body: flightCalculationData.distanceFormatted,
               ),
             ),
             Expanded(
               child: FlightCalculationDataItem(
                 title: 'Estimated CO2e',
-                body: co2eString,
+                body: flightCalculationData.co2eFormatted,
               ),
             ),
           ],

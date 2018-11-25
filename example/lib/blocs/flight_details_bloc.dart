@@ -5,6 +5,7 @@ import 'package:flight_co2_calculator_flutter/flight_class.dart';
 import 'package:flight_co2_calculator_flutter_example/blocs/bloc_provider.dart';
 import 'package:flight_co2_calculator_flutter/distance_calculator.dart';
 import 'package:flight_co2_calculator_flutter/co2_calculator.dart';
+import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -46,6 +47,19 @@ class FlightData {
   FlightData({this.distanceKm, this.co2e});
   final double distanceKm;
   final double co2e;
+
+  String get distanceFormatted {
+    return distanceKm != null ? '${distanceKm.roundToDouble().toInt()} km' : '';
+  }
+
+  String get co2eFormatted {
+    if (co2e != null) {
+      double tonnes = co2e / 1000.0;
+      final formatter = NumberFormat.decimalPattern();
+      return '${formatter.format(tonnes)} t';
+    }
+    return '';
+  }
 
   /// factory method to calculate the distance and co2 from the flight details
   factory FlightData.fromDetails(FlightDetails flightDetails) {

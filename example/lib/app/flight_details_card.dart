@@ -2,6 +2,7 @@ import 'package:flight_co2_calculator_flutter/airport.dart';
 import 'package:flight_co2_calculator_flutter/airport_lookup.dart';
 import 'package:flight_co2_calculator_flutter_example/app/airport_search_delegate.dart';
 import 'package:flight_co2_calculator_flutter_example/app/airport_widget.dart';
+import 'package:flight_co2_calculator_flutter_example/app/common_widgets/vertical_spacing.dart';
 import 'package:flight_co2_calculator_flutter_example/app/constants/palette.dart';
 import 'package:flight_co2_calculator_flutter_example/app/constants/text_styles.dart';
 import 'package:flight_co2_calculator_flutter_example/app/segmented_control.dart';
@@ -67,21 +68,21 @@ class FlightDetailsCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            SizedBox(height: 16.0),
+            VerticalSpacing(),
             AirportWidget(
               iconData: Icons.flight_takeoff,
               title: Text('Departing From', style: TextStyles.caption),
               airport: flightDetails.departure,
               onPressed: () => _selectDeparture(context),
             ),
-            SizedBox(height: 16.0),
+            VerticalSpacing(),
             AirportWidget(
               iconData: Icons.flight_land,
               title: Text('Flying to', style: TextStyles.caption),
               airport: flightDetails.arrival,
               onPressed: () => _selectArrival(context),
             ),
-            SizedBox(height: 16.0),
+            VerticalSpacing(),
             SegmentedControl<FlightType>(
               header: Text('Type', style: TextStyles.caption),
               value: flightDetails.flightType,
@@ -89,7 +90,7 @@ class FlightDetailsCard extends StatelessWidget {
               onValueChanged: (flightType) =>
                   bloc.updateWith(flightType: flightType),
             ),
-            SizedBox(height: 16.0),
+            VerticalSpacing(),
             SegmentedControl<FlightClass>(
               header: Text('Class', style: TextStyles.caption),
               value: flightDetails.flightClass,
@@ -97,7 +98,7 @@ class FlightDetailsCard extends StatelessWidget {
               onValueChanged: (flightClass) =>
                   bloc.updateWith(flightClass: flightClass),
             ),
-            SizedBox(height: 16.0),
+            VerticalSpacing(),
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flight_co2_calculator_flutter/airport.dart';
+import 'package:flight_co2_calculator_flutter_example/app/common_widgets/vertical_spacing.dart';
 import 'package:flutter/material.dart';
 
 class AirportWidget extends StatelessWidget {
@@ -25,13 +26,13 @@ class AirportWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Icon(iconData),
-            SizedBox(width: 16.0),
+            VerticalSpacing(),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   title,
-                  SizedBox(height: 4.0),
+                  VerticalSpacing(height: 4.0),
                   AutoSizeText(
                     airportDisplayName,
                     style: TextStyle(fontSize: 16.0),

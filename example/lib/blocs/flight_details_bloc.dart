@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flight_co2_calculator_flutter/airport.dart';
 import 'package:flight_co2_calculator_flutter/flight_class.dart';
-import 'package:flight_co2_calculator_flutter_example/blocs/bloc_provider.dart';
 import 'package:flight_co2_calculator_flutter/distance_calculator.dart';
 import 'package:flight_co2_calculator_flutter/co2_calculator.dart';
 import 'package:intl/intl.dart';
@@ -119,7 +118,7 @@ class Flight {
 }
 
 /// Bloc used by the FlightPage
-class FlightDetailsBloc implements BlocBase {
+class FlightDetailsBloc {
   BehaviorSubject _flightSubject = BehaviorSubject<Flight>(
     seedValue: Flight.initialData(),
   );

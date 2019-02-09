@@ -2,9 +2,9 @@ import 'package:flight_co2_calculator_flutter/airport.dart';
 import 'package:flight_co2_calculator_flutter/airport_data_reader.dart';
 import 'package:flight_co2_calculator_flutter/airport_lookup.dart';
 import 'package:flight_co2_calculator_flutter_example/app/flight_page.dart';
-import 'package:flight_co2_calculator_flutter_example/blocs/bloc_provider.dart';
 import 'package:flight_co2_calculator_flutter_example/blocs/flight_details_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   final start = DateTime.now();
@@ -22,11 +22,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flight CO2 calculator',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: BlocProvider<FlightDetailsBloc>(
-        bloc: FlightDetailsBloc(),
+      home: StatefulProvider<FlightDetailsBloc>(
+        valueBuilder: (context) => FlightDetailsBloc(),
+        onDispose: (context, bloc) => bloc.dispose(),
         child: FlightPage(airportLookup: airportLookup),
       ),
     );

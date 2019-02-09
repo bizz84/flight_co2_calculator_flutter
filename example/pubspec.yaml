@@ -1,6 +1,7 @@
 name: flight_co2_calculator_flutter_example
 description: Demonstrates how to use the flight_co2_calculator_flutter plugin.
 publish_to: 'none'
+version: 1.0.0+1
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
@@ -23,6 +24,7 @@ dev_dependencies:
   rxdart: 0.18.1
   intl: 0.15.7
   auto_size_text: 0.2.1
+  provider: 1.4.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec

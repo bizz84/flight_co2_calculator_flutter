@@ -4,10 +4,10 @@ import 'package:flight_co2_calculator_flutter_example/app/constants/palette.dart
 import 'package:flight_co2_calculator_flutter_example/app/constants/text_styles.dart';
 import 'package:flight_co2_calculator_flutter_example/app/flight_calculation_card.dart';
 import 'package:flight_co2_calculator_flutter_example/app/flight_details_card.dart';
-import 'package:flight_co2_calculator_flutter_example/blocs/bloc_provider.dart';
 import 'package:flight_co2_calculator_flutter_example/blocs/flight_details_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 class FlightPage extends StatelessWidget {
   FlightPage({this.airportLookup});
@@ -25,7 +25,7 @@ class FlightPage extends StatelessWidget {
   }
 
   Widget _buildContent(BuildContext context) {
-    final flightDetailsBloc = BlocProvider.of<FlightDetailsBloc>(context);
+    final flightDetailsBloc = Provider.of<FlightDetailsBloc>(context);
     return StreamBuilder<Flight>(
       stream: flightDetailsBloc.flightStream,
       initialData: Flight.initialData(),
@@ -48,6 +48,7 @@ class FlightPage extends StatelessWidget {
                 FlightDetailsCard(
                   airportLookup: airportLookup,
                   flightDetails: snapshot.data.details,
+                  flightDetailsBloc: flightDetailsBloc,
                 ),
                 FlightCalculationCard(
                   flightCalculationData: snapshot.data.data,

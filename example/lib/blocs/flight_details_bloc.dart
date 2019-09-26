@@ -119,9 +119,8 @@ class Flight {
 
 /// Bloc used by the FlightPage
 class FlightDetailsBloc {
-  BehaviorSubject _flightSubject = BehaviorSubject<Flight>(
-    seedValue: Flight.initialData(),
-  );
+  BehaviorSubject _flightSubject =
+      BehaviorSubject<Flight>.seeded(Flight.initialData());
   Stream<Flight> get flightStream => _flightSubject.controller.stream;
 
   void updateWith({

@@ -26,9 +26,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: StatefulProvider<FlightDetailsBloc>(
-        valueBuilder: (context) => FlightDetailsBloc(),
-        onDispose: (context, bloc) => bloc.dispose(),
+      home: Provider<FlightDetailsBloc>(
+        builder: (context) => FlightDetailsBloc(),
+        dispose: (context, bloc) => bloc.dispose(),
         child: FlightPage(airportLookup: airportLookup),
       ),
     );

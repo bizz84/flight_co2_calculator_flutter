@@ -8,6 +8,8 @@ This plugin provides a collection of classes that can be used to:
 - Lookup airports matching a search query against the entire data-set of airports. 
 - Calculate the distance and CO2 emissions from flights.
 
+[Flutter Web Demo](https://flight-co2-calculator.web.app/#/)
+
 ## What you can do with this
 
 Build a Flight CO2 Calculator app such as this:

@@ -14,7 +14,7 @@ This plugin provides a collection of classes that can be used to:
 
 Build a Flight CO2 Calculator app such as this:
 
-[](screenshots/FlightCalculator-screenshots.png)
+![](screenshots/FlightCalculator-screenshots.png)
 
 ## How to use it
 
